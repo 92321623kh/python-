@@ -93,6 +93,11 @@ def move_ball():
         win.title(message +"得点=" + str(point))
         winsound.Beep(200, 800)
         is_gameover = True
+
+if 0 <= ball_ichi_x + ball_idou_x <= 640:
+        ball_ichi_x = ball_ichi_x + ball_idou_x
+    if 0 <= ball_ichi_y + ball_idou_y <= 480:
+        ball_ichi_y = ball_ichi_y + ball_idou_y
         
 #ゲームのメイン処理
 init_game()
