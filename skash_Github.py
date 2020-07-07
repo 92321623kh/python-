@@ -98,7 +98,12 @@ if 0 <= ball_ichi_x + ball_idou_x <= 640:
         ball_ichi_x = ball_ichi_x + ball_idou_x
     if 0 <= ball_ichi_y + ball_idou_y <= 480:
         ball_ichi_y = ball_ichi_y + ball_idou_y
-        
+
+#マウスの動きの処理
+def motion(event):
+    global racket_ichi_x
+    racket_ichi_x = event.x
+    
 #ゲームのメイン処理
 init_game()
 win.mainloop()
