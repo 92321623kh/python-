@@ -32,7 +32,12 @@ def draw_screen():
     cv.delete('all')
     #キャンバス（画面）の作成
     cv.create_rectangle(0,0,640,480,fill="white",width=0)
+
+def draw_ball():
+    #ボール描く
+    cv.create_oval(ball_ichi_x - ball_size,ball_ichi_y - ball_size,
+        ball_ichi_x + ball_size,ball_ichi_y + ball_size,fill = "red")
     
-#ゲームメイン処理
+#ゲームのメイン処理
 init_game()
 win.mainloop()
