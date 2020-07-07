@@ -2,6 +2,8 @@
 
 #モジュールのインポート
 from tkinter import *
+import random
+import winsound
 
 #ウィンドウ作成
 win = Tk()
