@@ -80,6 +80,19 @@ def move_ball():
             message = "素敵"
         point += 10
         win.title(message + "得点="+ str(point))
+
+ #ミスしたときの判定
+    if ball_ichi_y + ball_idou_y >= 480:
+        mes = random.randint(0,2)
+        if mes == 0:
+            message = "下手くそ"
+        if mes == 1:
+            message = "ミス"
+        if mes == 2:
+            message = "は？"
+        win.title(message +"得点=" + str(point))
+        winsound.Beep(200, 800)
+        is_gameover = True
         
 #ゲームのメイン処理
 init_game()
