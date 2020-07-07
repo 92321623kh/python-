@@ -3,7 +3,6 @@
 #モジュールのインポート
 from tkinter import *
 import random
-import winsound
 
 #ウィンドウ作成
 win = Tk()
@@ -25,7 +24,7 @@ def init_game():
     racket_ichi_x = 0
     racket_size = 100
     point = 10
-    speed = 150
+    speed = 50
     win.title("スカッシュゲームスタート！")
 
 #画面描画
@@ -52,12 +51,10 @@ def move_ball():
  #左右の壁に当たったかの判定
     if ball_ichi_x + ball_idou_x < 0 or ball_ichi_x + ball_idou_x > 640:
         ball_idou_x *= -1
-        winsound.Beep(400, 900)
 
 #天井か床に当たったかの判定
     if ball_ichi_y + ball_idou_y < 0:
         ball_idou_y *= -1
-        winsound.Beep(400, 900)
         
  #ラケットに当たったか判定
     if ball_ichi_y + ball_idou_y > 470 and (
@@ -67,7 +64,6 @@ def move_ball():
         ball_idou_y *= -1
         if random.randint(0, 1) == 0:
             ball_idou_x *= -1
-        winsound.Beep(400, 900)
 
         mes = random.randint(0,4)
         if mes == 0:
@@ -93,7 +89,6 @@ def move_ball():
         if mes == 2:
             message = "は？"
         win.title(message +"得点=" + str(point))
-        winsound.Beep(200, 800)
         is_gameover = True
 
     if 0 <= ball_ichi_x + ball_idou_x <= 640:
