@@ -108,6 +108,10 @@ def click(event):
     if event.num == 1:
         init_game()
 
+#マウスの動きとクリックの確認
+win.bind('<Motion>',motion)
+win.bind('<Button>',click)
+
 #ゲームのメイン処理
 init_game()
 win.mainloop()
