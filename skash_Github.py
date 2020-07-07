@@ -51,6 +51,11 @@ def move_ball():
     if ball_ichi_x + ball_idou_x < 0 or ball_ichi_x + ball_idou_x > 640:
         ball_idou_x *= -1
         winsound.Beep(400, 900)
+
+#天井か床に当たったかの判定
+    if ball_ichi_y + ball_idou_y < 0:
+        ball_idou_y *= -1
+        winsound.Beep(400, 900)
         
 #ゲームのメイン処理
 init_game()
