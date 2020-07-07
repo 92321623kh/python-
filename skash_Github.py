@@ -41,7 +41,7 @@ def draw_ball():
 
 def draw_racket():
     #ラケットを描く
-    cv.create_rectangle(racket_ichi_x,470,racket_ichi_x +70,480,fill="yellow")
+    cv.create_rectangle(racket_ichi_x,470,racket_ichi_x +75,480,fill="yellow")
 
 #ボールの移動
 def move_ball():
