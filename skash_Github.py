@@ -67,6 +67,20 @@ def move_ball():
             ball_idou_x *= -1
         winsound.Beep(400, 900)
 
+ mes = random.randint(0,4)
+        if mes == 0:
+            message = "うまい"
+        if mes == 1:
+            message = "グッド"
+        if mes == 2:
+            message = "ナイス"
+        if mes == 3:
+            message = "よし"
+        if mes == 4:
+            message = "素敵"
+        point += 10
+        win.title(message + "得点="+ str(point))
+        
 #ゲームのメイン処理
 init_game()
 win.mainloop()
