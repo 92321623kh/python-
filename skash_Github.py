@@ -112,6 +112,14 @@ def click(event):
 win.bind('<Motion>',motion)
 win.bind('<Button>',click)
 
+#ゲームの繰り返し処理の指令
+def game_loop():
+    draw_screen()
+    draw_ball()
+    draw_racket()
+    move_ball()
+    win.after(speed,game_loop)
+    
 #ゲームのメイン処理
 init_game()
 win.mainloop()
