@@ -24,8 +24,8 @@ def init_game():
     ball_size = 10
     racket_ichi_x = 0
     racket_size = 100
-    point = 0
-    speed = 50
+    point = 10
+    speed = 150
     win.title("スカッシュゲームスタート！")
 
 #画面描画
@@ -69,7 +69,7 @@ def move_ball():
             ball_idou_x *= -1
         winsound.Beep(400, 900)
 
- mes = random.randint(0,4)
+        mes = random.randint(0,4)
         if mes == 0:
             message = "うまい"
         if mes == 1:
@@ -96,7 +96,7 @@ def move_ball():
         winsound.Beep(200, 800)
         is_gameover = True
 
-if 0 <= ball_ichi_x + ball_idou_x <= 640:
+    if 0 <= ball_ichi_x + ball_idou_x <= 640:
         ball_ichi_x = ball_ichi_x + ball_idou_x
     if 0 <= ball_ichi_y + ball_idou_y <= 480:
         ball_ichi_y = ball_ichi_y + ball_idou_y
@@ -124,4 +124,5 @@ def game_loop():
     
 #ゲームのメイン処理
 init_game()
+game_loop()
 win.mainloop()
