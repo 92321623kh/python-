@@ -41,7 +41,12 @@ def draw_ball():
 def draw_racket():
     #ラケットを描く
     cv.create_rectangle(racket_ichi_x,470,racket_ichi_x + racket_size,480,fill="yellow")
-     
+
+#ボールの移動
+def move_ball():
+    global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y
+    if is_gameover: return
+    
 #ゲームのメイン処理
 init_game()
 win.mainloop()
