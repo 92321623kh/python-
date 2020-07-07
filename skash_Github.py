@@ -57,6 +57,16 @@ def move_ball():
         ball_idou_y *= -1
         winsound.Beep(400, 900)
         
+ #ラケットに当たったか判定
+    if ball_ichi_y + ball_idou_y > 470 and (
+        racket_ichi_x <= (ball_ichi_x + ball_idou_x) <=
+        (racket_ichi_x + racket_size)
+        ):
+        ball_idou_y *= -1
+        if random.randint(0, 1) == 0:
+            ball_idou_x *= -1
+        winsound.Beep(400, 900)
+
 #ゲームのメイン処理
 init_game()
 win.mainloop()
