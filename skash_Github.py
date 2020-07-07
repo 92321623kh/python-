@@ -103,7 +103,11 @@ if 0 <= ball_ichi_x + ball_idou_x <= 640:
 def motion(event):
     global racket_ichi_x
     racket_ichi_x = event.x
-    
+
+def click(event):
+    if event.num == 1:
+        init_game()
+
 #ゲームのメイン処理
 init_game()
 win.mainloop()
