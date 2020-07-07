@@ -46,7 +46,12 @@ def draw_racket():
 def move_ball():
     global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y
     if is_gameover: return
-    
+
+ #左右の壁に当たったかの判定
+    if ball_ichi_x + ball_idou_x < 0 or ball_ichi_x + ball_idou_x > 640:
+        ball_idou_x *= -1
+        winsound.Beep(400, 900)
+        
 #ゲームのメイン処理
 init_game()
 win.mainloop()
