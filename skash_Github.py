@@ -25,7 +25,7 @@ def init_game():
     racket_ichi_x = 0
     racket_size = 100
     point = 10
-    speed = 35
+    speed = 36
     win.title("スカッシュゲームスタート！")
 
 #画面描画
