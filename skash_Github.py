@@ -1,5 +1,4 @@
 #スカッシュゲーム(壁打ちテニス)
-#branchテスト2
 
 #モジュールのインポート
 from tkinter import *
@@ -26,7 +25,7 @@ def init_game():
     racket_ichi_x = 0
     racket_size = 100
     block_ichi_x = 100
-    block_size = 10
+    block_size = 100
     point = 10
     speed = 36
     win.title("スカッシュゲームスタート！")
@@ -49,7 +48,7 @@ def draw_racket():
     
 def draw_block():
     #障害物を描く
-    cv.create_rectangle(block_ichi_x,77,block_ichi_x +66,138,fill="blue")
+    cv.create_rectangle(block_ichi_x,66,block_ichi_x +76,138,fill="blue")
 
 #ボールの移動
 def move_ball():
@@ -103,6 +102,15 @@ def move_ball():
         ball_ichi_x = ball_ichi_x + ball_idou_x
     if 0 <= ball_ichi_y + ball_idou_y <= 480:
         ball_ichi_y = ball_ichi_y + ball_idou_y
+
+#障害物に当たったかの判定
+    if ball_ichi_y + ball_idou_y > 66 and (
+        block_ichi_x <= (ball_ichi_x + ball_idou_x) <=
+        (block_ichi_x + block_size)
+        ):
+        ball_idou_y *= -1
+        if random.randint(0, 1) == 0:
+            ball_idou_x *= -1
 
 #マウスの動きの処理
 def motion(event):
