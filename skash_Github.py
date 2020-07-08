@@ -104,7 +104,7 @@ def move_ball():
         ball_ichi_y = ball_ichi_y + ball_idou_y
 
 #障害物に当たったかの判定
-    if ball_ichi_y + ball_idou_y > 66 and (
+    if 66 < ball_ichi_y + ball_idou_y < 138 and (
         block_ichi_x <= (ball_ichi_x + ball_idou_x) <=
         (block_ichi_x + block_size)
         ):
