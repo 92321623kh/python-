@@ -15,6 +15,7 @@ def init_game():
     global is_gameover,ball_ichi_x,ball_ichi_y
     global ball_idou_x,ball_idou_y,ball_size
     global racket_ichi_x,racket_size,point,speed
+    global block_ichi_x,block_size,point
     
     is_gameover = False
     ball_ichi_x = 0
@@ -24,6 +25,8 @@ def init_game():
     ball_size = 10
     racket_ichi_x = 0
     racket_size = 100
+    block_ichi_x = 100
+    block_size = 10
     point = 10
     speed = 36
     win.title("スカッシュゲームスタート！")
@@ -43,6 +46,10 @@ def draw_ball():
 def draw_racket():
     #ラケットを描く
     cv.create_rectangle(racket_ichi_x,470,racket_ichi_x +76,480,fill="yellow")
+    
+def draw_block():
+    #障害物を描く
+    cv.create_rectangle(block_ichi_x,77,block_ichi_x +66,138,fill="blue")
 
 #ボールの移動
 def move_ball():
@@ -115,6 +122,7 @@ def game_loop():
     draw_screen()
     draw_ball()
     draw_racket()
+    draw_block()
     move_ball()
     win.after(speed,game_loop)
     
