@@ -14,7 +14,7 @@ cv.pack()
 def init_game():
     global is_gameover,ball_ichi_x,ball_ichi_y
     global ball_idou_x,ball_idou_y,ball_size
-    global racket_ichi_x,racket_size,racket_left,point,speed
+    global racket_ichi_x,racket_size,racket_left,racket_center,point,speed
     global block_ichi_x,block_size,point
     
     is_gameover = False
@@ -25,7 +25,8 @@ def init_game():
     ball_size = 10
     racket_ichi_x = 0
     racket_size = 100
-    racket_left = 40
+    racket_left = 40 
+    racket_center = 20
     block_ichi_x = 100
     block_size = 100
     stock_ichi_x = 100
@@ -77,6 +78,14 @@ def move_ball():
         ball_idou_y *= -1
         if random.randint(0, 1) == 0:
             ball_idou_x *= -1
+
+     #ラケット中央に当たった場合
+    if ball_ichi_y + ball_idou_y > 470 and (
+        racket_ichi_x <= (ball_ichi_x + ball_idou_x) <=
+        (racket_left + racket_center)
+        ):
+        ball_idou_y *= -1
+        ball_idou_x *= -1
 
         mes = random.randint(0,4)
         if mes == 0:
