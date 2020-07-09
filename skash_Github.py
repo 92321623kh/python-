@@ -2,6 +2,7 @@
 
 #モジュールのインポート
 from tkinter import *
+from tkinter import ttk
 import random
 
 #ウィンドウ作成
@@ -13,7 +14,7 @@ cv.pack()
 def init_game():
     global is_gameover,ball_ichi_x,ball_ichi_y
     global ball_idou_x,ball_idou_y,ball_size
-    global racket_ichi_x,racket_size,point,speed
+    global racket_ichi_x,racket_size,racket_left,point,speed
     global block_ichi_x,block_size,point
     
     is_gameover = False
@@ -24,11 +25,15 @@ def init_game():
     ball_size = 10
     racket_ichi_x = 0
     racket_size = 100
+    racket_left = 40
     block_ichi_x = 100
     block_size = 100
+    stock_ichi_x = 100
+    stock_ichi_y = 100
     point = 10
-    speed = 36
+    speed = 70
     win.title("スカッシュゲームスタート！")
+
 
 #画面描画
 def draw_screen():
@@ -41,7 +46,7 @@ def draw_ball():
     #ボール描く
     cv.create_oval(ball_ichi_x - ball_size,ball_ichi_y - ball_size,
         ball_ichi_x + ball_size,ball_ichi_y + ball_size,fill = "red")
-
+    
 def draw_racket():
     #ラケットを描く
     cv.create_rectangle(racket_ichi_x,470,racket_ichi_x +76,480,fill="yellow")
@@ -64,9 +69,10 @@ def move_ball():
         ball_idou_y *= -1
         
  #ラケットに当たったか判定
+    #ラケット左側に当たった場合
     if ball_ichi_y + ball_idou_y > 470 and (
         racket_ichi_x <= (ball_ichi_x + ball_idou_x) <=
-        (racket_ichi_x + racket_size)
+        (racket_ichi_x + racket_left)
         ):
         ball_idou_y *= -1
         if random.randint(0, 1) == 0:
