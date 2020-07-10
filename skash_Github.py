@@ -93,6 +93,15 @@ def move_ball():
         if random.randint(0, 1) == 0:
             ball_idou_x *= -1
 
+    #ラケット右側当たり判定
+    if ball_ichi_y + ball_idou_y > 470 and (
+        racket_ichi_x+200 <= (ball_ichi_x + ball_idou_x) <=
+       ((racket_ichi_x + 200)+100)
+        ):
+        ball_idou_y *= -1
+        if random.randint(0, 1) == 0:
+            ball_idou_x *= -1
+            
         mes = random.randint(0,4)
         if mes == 0:
             message = "うまい"
