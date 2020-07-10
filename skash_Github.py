@@ -14,7 +14,7 @@ cv.pack()
 def init_game():
     global is_gameover,ball_ichi_x,ball_ichi_y
     global ball_idou_x,ball_idou_y,ball_size
-    global racket_ichi_x,racket_size,racket_left,racket_center,point,speed
+    global racket_ichi_x,racket_size,racket_left,racket_center,racket_right,point,speed
     global block_ichi_x,block_size,point
     
     is_gameover = False
@@ -27,6 +27,7 @@ def init_game():
     racket_size = 100
     racket_left = 40 
     racket_center = 20
+    racket_right = 40
     block_ichi_x = 100
     block_size = 100
     stock_ichi_x = 100
@@ -48,9 +49,13 @@ def draw_ball():
     cv.create_oval(ball_ichi_x - ball_size,ball_ichi_y - ball_size,
         ball_ichi_x + ball_size,ball_ichi_y + ball_size,fill = "red")
     
+    
 def draw_racket():
     #ラケットを描く
-    cv.create_rectangle(racket_ichi_x,470,racket_ichi_x +76,480,fill="yellow")
+    cv.create_rectangle(racket_ichi_x,470,racket_ichi_x +100,480,fill="yellow")
+    cv.create_rectangle(racket_ichi_x+100,470,(racket_ichi_x +100)+100,480,fill="blue")
+    cv.create_rectangle(racket_ichi_x+200,470,(racket_ichi_x +200)+100,480,fill="green")
+    
     
 def draw_block():
     #障害物を描く
@@ -70,22 +75,13 @@ def move_ball():
         ball_idou_y *= -1
         
  #ラケットに当たったか判定
-    #ラケット左側に当たった場合
     if ball_ichi_y + ball_idou_y > 470 and (
         racket_ichi_x <= (ball_ichi_x + ball_idou_x) <=
-        (racket_ichi_x + racket_left)
+       (racket_ichi_x + racket_size)
         ):
         ball_idou_y *= -1
         if random.randint(0, 1) == 0:
             ball_idou_x *= -1
-
-     #ラケット中央に当たった場合
-    if ball_ichi_y + ball_idou_y > 470 and (
-        racket_ichi_x <= (ball_ichi_x + ball_idou_x) <=
-        (racket_left + racket_center)
-        ):
-        ball_idou_y *= -1
-        ball_idou_x *= -1
 
         mes = random.randint(0,4)
         if mes == 0:
