@@ -81,8 +81,11 @@ def move_ball():
        (racket_ichi_x + 100)
         ):
         ball_idou_y *= -1
-        if random.randint(0, 1) == 0:
+        
+        if ball_ichi_x + ball_idou_x > (racket_ichi_x + 100):
             ball_idou_x *= -1
+        if ball_ichi_x + ball_idou_x < racket_ichi_x:
+            ball_idou_x *= 1
 
     #ラケット中央当たり判定
     if ball_ichi_y + ball_idou_y > 470 and (
