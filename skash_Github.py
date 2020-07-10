@@ -75,9 +75,19 @@ def move_ball():
         ball_idou_y *= -1
         
  #ラケットに当たったか判定
+    #ラケット左側当たり判定
     if ball_ichi_y + ball_idou_y > 470 and (
         racket_ichi_x <= (ball_ichi_x + ball_idou_x) <=
-       (racket_ichi_x + racket_size)
+       (racket_ichi_x + 100)
+        ):
+        ball_idou_y *= -1
+        if random.randint(0, 1) == 0:
+            ball_idou_x *= -1
+
+    #ラケット中央当たり判定
+    if ball_ichi_y + ball_idou_y > 470 and (
+        racket_ichi_x+100 <= (ball_ichi_x + ball_idou_x) <=
+       ((racket_ichi_x + 100)+100)
         ):
         ball_idou_y *= -1
         if random.randint(0, 1) == 0:
