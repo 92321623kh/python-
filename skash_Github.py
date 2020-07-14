@@ -49,7 +49,7 @@ def init_game():
     global is_gameover,ball_ichi_x,ball_ichi_y
     global ball_idou_x,ball_idou_y,ball_size
     global racket_ichi_x,racket_size,racket_left,racket_center,racket_right,point,speed
-    global block_ichi_x,block_size,point
+    global block_ichi_x,block_size,point,stock
     
     is_gameover = False
     ball_ichi_x = 0
@@ -67,9 +67,9 @@ def init_game():
     stock_ichi_x = 100
     stock_ichi_y = 100
     point = 10
+    stock = 3
     speed = 70
     win.title("スカッシュゲームスタート！")
-
 
 #画面描画
 def draw_screen():
@@ -96,8 +96,9 @@ def draw_block():
     cv.create_rectangle(block_ichi_x,106,block_ichi_x +76,138,fill="blue")
 
 #ボールの移動
+ ##グローバル関数定義
 def move_ball():
-    global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y
+    global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock
     if is_gameover: return
 
  #左右の壁に当たったかの判定
@@ -152,12 +153,10 @@ def move_ball():
             message = "素敵"
         point += 10
         win.title(message + "得点="+ str(point))
-
        
  #ミスしたときの判定
-    stock = 3   
     if ball_ichi_y + ball_idou_y >= 480:
-        
+       
         mes = random.randint(0,2)
         if mes == 0:
             message = "下手くそ"
@@ -167,33 +166,35 @@ def move_ball():
             message = "は？"
         win.title(message +"得点=" + str(point))
      
-        stock -= 1
+        stock = stock - 1
         
-        if stock == 2:
+        #ストック数減少
+        if stock == 0:
             label2 = ttk.Label(
             frame1,
-            text='2',
+            text=str(stock),
+            background='#ffffff',
+            width=20,
+            anchor=E,
+            padding=(5, 10))
+            label2.grid(row=0, column=2)
+            is_gameover = True
+        #ストックが０以外の時
+        else:
+            label2 = ttk.Label(
+            frame1,
+            text=str(stock),
             background='#ffffff',
             width=20,
             anchor=E,
             padding=(5, 10))
             label2.grid(row=0, column=2)
             
+        #やり直しボール移動    
         ball_ichi_x = ball_idou_x * -1
         ball_ichi_y = (ball_idou_y * -1) + 60
-        
-        if stock == 1:
-            label2 = ttk.Label(
-            frame1,
-            text='1',
-            background='#ffffff',
-            width=20,
-            anchor=E,
-            padding=(5, 10)) 
-        
-        if stock == 1:
-            is_gameover = True
-            
+
+    #ボールが枠内の時の移動        
     if 0 <= ball_ichi_x + ball_idou_x <= 640:
         ball_ichi_x = ball_ichi_x + ball_idou_x
     if 0 <= ball_ichi_y + ball_idou_y <= 480:
