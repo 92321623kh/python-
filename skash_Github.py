@@ -14,7 +14,7 @@ cv.pack()
 #ストックウィンドウ
 root = Tk()
 #ストックウィンドウ位置指定
-root.geometry('280x150+20+40')
+root.geometry('280x150+10+40')
 root.title('ストック')
 frame1 = ttk.Frame(root)
 frame1.grid()
@@ -172,7 +172,7 @@ def move_ball():
         if stock == 0:
             label2 = ttk.Label(
             frame1,
-            text=str(stock),
+            text= 'GAMEOVER',
             background='#ffffff',
             width=20,
             anchor=E,
@@ -216,6 +216,15 @@ def motion(event):
 
 def click(event):
     if event.num == 1:
+        #ラベル２表示
+        label2 = ttk.Label(
+        frame1,
+        text='3',
+        background='#ffffff',
+        width=20,
+        anchor=E,
+        padding=(5, 10))
+        label2.grid(row=0, column=2)
         init_game()
 
 #マウスの動きとクリックの確認
