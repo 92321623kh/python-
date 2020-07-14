@@ -10,6 +10,40 @@ win = Tk()
 cv = Canvas(win,width = 640,height = 480)
 cv.pack()
 
+
+#ストックウィンドウ
+root = Tk()
+#ストックウィンドウ位置指定
+root.geometry('180x100+20+40')
+root.title('ストック')
+frame1 = ttk.Frame(root)
+frame1.grid()
+style = ttk.Style()
+style.theme_use('classic')
+
+ 
+
+#ラベル１表示
+label1 = ttk.Label(
+    frame1,
+    text='残り',
+    background='#0000aa',
+    foreground='#ffffff',
+    padding=(5, 10))
+label1.grid(row=0, column=0)
+
+ 
+
+#ラベル２表示
+label2 = ttk.Label(
+    frame1,
+    text='3',
+    background='#ffffff',
+    width=20,
+    anchor=E,
+    padding=(5, 10))
+label2.grid(row=0, column=2)
+
 #ゲームの初期化
 def init_game():
     global is_gameover,ball_ichi_x,ball_ichi_y
