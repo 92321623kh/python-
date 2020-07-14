@@ -14,7 +14,7 @@ cv.pack()
 #ストックウィンドウ
 root = Tk()
 #ストックウィンドウ位置指定
-root.geometry('180x100+20+40')
+root.geometry('280x150+20+40')
 root.title('ストック')
 frame1 = ttk.Frame(root)
 frame1.grid()
@@ -93,7 +93,7 @@ def draw_racket():
     
 def draw_block():
     #障害物を描く
-    cv.create_rectangle(block_ichi_x,66,block_ichi_x +76,138,fill="blue")
+    cv.create_rectangle(block_ichi_x,106,block_ichi_x +76,138,fill="blue")
 
 #ボールの移動
 def move_ball():
@@ -153,8 +153,11 @@ def move_ball():
         point += 10
         win.title(message + "得点="+ str(point))
 
+       
  #ミスしたときの判定
+    stock = 3   
     if ball_ichi_y + ball_idou_y >= 480:
+        
         mes = random.randint(0,2)
         if mes == 0:
             message = "下手くそ"
@@ -163,8 +166,34 @@ def move_ball():
         if mes == 2:
             message = "は？"
         win.title(message +"得点=" + str(point))
-        is_gameover = True
-
+     
+        stock -= 1
+        
+        if stock == 2:
+            label2 = ttk.Label(
+            frame1,
+            text='2',
+            background='#ffffff',
+            width=20,
+            anchor=E,
+            padding=(5, 10))
+            label2.grid(row=0, column=2)
+            
+        ball_ichi_x = ball_idou_x * -1
+        ball_ichi_y = (ball_idou_y * -1) + 60
+        
+        if stock == 1:
+            label2 = ttk.Label(
+            frame1,
+            text='1',
+            background='#ffffff',
+            width=20,
+            anchor=E,
+            padding=(5, 10)) 
+        
+        if stock == 1:
+            is_gameover = True
+            
     if 0 <= ball_ichi_x + ball_idou_x <= 640:
         ball_ichi_x = ball_ichi_x + ball_idou_x
     if 0 <= ball_ichi_y + ball_idou_y <= 480:
