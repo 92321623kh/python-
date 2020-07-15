@@ -46,7 +46,7 @@ def init_game():
     global is_gameover,ball_ichi_x,ball_ichi_y
     global ball_idou_x,ball_idou_y,ball_size
     global racket_ichi_x,racket_size,point,speed
-    global block_ichi_x,block_size,point,stock
+    global block_ichi_x,block_size,block_idou_x,point,stock
     
     is_gameover = False
     ball_ichi_x = 0
@@ -60,6 +60,7 @@ def init_game():
     block_size = 100
     stock_ichi_x = 100
     stock_ichi_y = 100
+    block_idou_x = 30
     point = 10
     stock = 3
     speed = 70
@@ -88,9 +89,11 @@ def draw_racket():
 def draw_block():
     #障害物を描く
     cv.create_rectangle(block_ichi_x,106,block_ichi_x +76,138,fill="blue")
-
+    cv.create_rectangle(350,0,350 +76,8,fill="red")
+    
+    
 #ボールの移動
- ##グローバル関数定義
+##グローバル関数定義
 def move_ball():
     global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock
     if is_gameover: return
@@ -189,7 +192,7 @@ def move_ball():
             
         #やり直しボール移動(ランダム)
         x = random.randint(0,640)
-        y = random.randint(0,480)
+        y = random.randint(0,240)
         ball_ichi_x = (ball_idou_x * -1) + x
         ball_ichi_y = (ball_idou_y * -1) + y
 
@@ -212,6 +215,7 @@ def move_ball():
 def motion(event):
     global racket_ichi_x
     racket_ichi_x = event.x
+
 
 def click(event):
     if event.num == 1:
@@ -237,6 +241,7 @@ def game_loop():
     draw_racket()
     draw_block()
     move_ball()
+    #move_block()
     win.after(speed,game_loop)
     
 #ゲームのメイン処理
