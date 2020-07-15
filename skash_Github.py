@@ -21,7 +21,6 @@ frame1.grid()
 style = ttk.Style()
 style.theme_use('classic')
 
- 
 
 #ラベル１表示
 label1 = ttk.Label(
@@ -31,8 +30,6 @@ label1 = ttk.Label(
     foreground='#ffffff',
     padding=(5, 10))
 label1.grid(row=0, column=0)
-
- 
 
 #ラベル２表示
 label2 = ttk.Label(
@@ -86,9 +83,9 @@ def draw_ball():
     
 def draw_racket():
     #ラケットを描く
-    cv.create_rectangle(racket_ichi_x,470,racket_ichi_x +100,480,fill="yellow")
-    cv.create_rectangle(racket_ichi_x+100,470,(racket_ichi_x +100)+100,480,fill="blue")
-    cv.create_rectangle(racket_ichi_x+200,470,(racket_ichi_x +200)+100,480,fill="green")
+    cv.create_rectangle(racket_ichi_x,470,racket_ichi_x +40,480,fill="yellow")
+    cv.create_rectangle(racket_ichi_x+40,470,(racket_ichi_x +40)+40,480,fill="yellow")
+    cv.create_rectangle(racket_ichi_x+80,470,(racket_ichi_x +80)+40,480,fill="yellow")
     
     
 def draw_block():
@@ -101,7 +98,7 @@ def move_ball():
     global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock
     if is_gameover: return
 
- #左右の壁に当たったかの判定
+#左右の壁に当たったかの判定
     if ball_ichi_x + ball_idou_x < 0 or ball_ichi_x + ball_idou_x > 640:
         ball_idou_x *= -1
 
@@ -109,23 +106,23 @@ def move_ball():
     if ball_ichi_y + ball_idou_y < 0:
         ball_idou_y *= -1
         
- #ラケットに当たったか判定
+#ラケットに当たったか判定
     #ラケット左側当たり判定
     if ball_ichi_y + ball_idou_y > 470 and (
         racket_ichi_x <= (ball_ichi_x + ball_idou_x) <=
-       (racket_ichi_x + 100)
+       (racket_ichi_x + 40)
         ):
         ball_idou_y *= -1
         
-        if ball_ichi_x + ball_idou_x > (racket_ichi_x + 100):
+        if ball_idou_x > 0:
             ball_idou_x *= -1
-        if ball_ichi_x + ball_idou_x < racket_ichi_x:
+        if ball_idou_x < 0:
             ball_idou_x *= 1
 
     #ラケット中央当たり判定
     if ball_ichi_y + ball_idou_y > 470 and (
-        racket_ichi_x+100 <= (ball_ichi_x + ball_idou_x) <=
-       ((racket_ichi_x + 100)+100)
+        racket_ichi_x+40 <= (ball_ichi_x + ball_idou_x) <=
+       ((racket_ichi_x + 40)+40)
         ):
         ball_idou_y *= -1
         if random.randint(0, 1) == 0:
@@ -133,11 +130,14 @@ def move_ball():
 
     #ラケット右側当たり判定
     if ball_ichi_y + ball_idou_y > 470 and (
-        racket_ichi_x+200 <= (ball_ichi_x + ball_idou_x) <=
-       ((racket_ichi_x + 200)+100)
+        racket_ichi_x+80 <= (ball_ichi_x + ball_idou_x) <=
+       ((racket_ichi_x + 80)+40)
         ):
         ball_idou_y *= -1
-        if random.randint(0, 1) == 0:
+        
+        if ball_idou_x > 0:
+            ball_idou_x *= 1
+        if ball_idou_x < 0:
             ball_idou_x *= -1
             
         mes = random.randint(0,4)
@@ -216,7 +216,7 @@ def motion(event):
 
 def click(event):
     if event.num == 1:
-        #ラベル２表示
+        #ストック数回復
         label2 = ttk.Label(
         frame1,
         text='3',
