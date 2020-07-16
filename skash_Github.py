@@ -45,8 +45,13 @@ label2.grid(row=0, column=2)
 def init_game():
     global is_gameover,ball_ichi_x,ball_ichi_y
     global ball_idou_x,ball_idou_y,ball_size
+
     global racket_ichi_x,racket_size,point,speed
     global block_ichi_x,block_size,block_idou_x,point,stock
+
+    global racket_ichi_x,racket_size,racket_left,racket_center,racket_right,point,speed
+    global block_ichi_x,block_size,point,stock
+
     
     is_gameover = False
     ball_ichi_x = 0
@@ -90,12 +95,18 @@ def draw_racket():
 def draw_block():
     #障害物を描く
     cv.create_rectangle(block_ichi_x,106,block_ichi_x +76,138,fill="blue")
+
     #ポイント加算障害物
     cv.create_rectangle( 350, 0,350 +76,8,fill="red")
     
     
 #ボールの移動
 ##グローバル関数定義
+
+
+#ボールの移動
+ ##グローバル関数定義
+
 def move_ball():
     global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock
     if is_gameover: return
@@ -220,11 +231,16 @@ def move_ball():
             padding=(5, 10))
             label2.grid(row=0, column=2)
             
+
         #やり直しボール移動(ランダム)
         x = random.randint(0,640)
         y = random.randint(0,240)
         ball_ichi_x = (ball_idou_x * -1) + x
         ball_ichi_y = (ball_idou_y * -1) + y
+
+        #やり直しボール移動    
+        ball_ichi_x = ball_idou_x * -1
+        ball_ichi_y = (ball_idou_y * -1) + 60
 
     #ボールが枠内の時の移動        
     if 0 <= ball_ichi_x + ball_idou_x <= 640:
