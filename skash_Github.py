@@ -45,8 +45,13 @@ label2.grid(row=0, column=2)
 def init_game():
     global is_gameover,ball_ichi_x,ball_ichi_y
     global ball_idou_x,ball_idou_y,ball_size
+<<<<<<< HEAD
     global racket_ichi_x,racket_size,racket_left,racket_center,racket_right,point,speed
     global block_ichi_x,block_size,point,stock
+=======
+    global racket_ichi_x,racket_size,point,speed
+    global block_ichi_x,block_size,block_idou_x,point,stock
+>>>>>>> ポイント加算オブジェクト
     
     is_gameover = False
     ball_ichi_x = 0
@@ -56,13 +61,12 @@ def init_game():
     ball_size = 10
     racket_ichi_x = 0
     racket_size = 100
-    racket_left = 40 
-    racket_center = 20
-    racket_right = 40
     block_ichi_x = 100
     block_size = 100
     stock_ichi_x = 100
     stock_ichi_y = 100
+    block_idou_x = 30
+    plus_block_x = 350
     point = 10
     stock = 3
     speed = 70
@@ -91,9 +95,18 @@ def draw_racket():
 def draw_block():
     #障害物を描く
     cv.create_rectangle(block_ichi_x,106,block_ichi_x +76,138,fill="blue")
+<<<<<<< HEAD
 
 #ボールの移動
  ##グローバル関数定義
+=======
+    #ポイント加算障害物
+    cv.create_rectangle( 350, 0,350 +76,8,fill="red")
+    
+    
+#ボールの移動
+##グローバル関数定義
+>>>>>>> ポイント加算オブジェクト
 def move_ball():
     global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock
     if is_gameover: return
@@ -119,6 +132,20 @@ def move_ball():
         if ball_idou_x < 0:
             ball_idou_x *= 1
 
+        mes = random.randint(0,4)
+        if mes == 0:
+            message = "うまい"
+        if mes == 1:
+            message = "グッド"
+        if mes == 2:
+            message = "ナイス"
+        if mes == 3:
+            message = "よし"
+        if mes == 4:
+            message = "素敵"
+        point += 10
+        win.title(message + "得点="+ str(point))
+
     #ラケット中央当たり判定
     if ball_ichi_y + ball_idou_y > 470 and (
         racket_ichi_x+40 <= (ball_ichi_x + ball_idou_x) <=
@@ -127,7 +154,21 @@ def move_ball():
         ball_idou_y *= -1
         if random.randint(0, 1) == 0:
             ball_idou_x *= -1
-
+        
+        mes = random.randint(0,4)
+        if mes == 0:
+            message = "うまい"
+        if mes == 1:
+            message = "グッド"
+        if mes == 2:
+            message = "ナイス"
+        if mes == 3:
+            message = "よし"
+        if mes == 4:
+            message = "素敵"
+        point += 10
+        win.title(message + "得点="+ str(point))
+        
     #ラケット右側当たり判定
     if ball_ichi_y + ball_idou_y > 470 and (
         racket_ichi_x+80 <= (ball_ichi_x + ball_idou_x) <=
@@ -190,9 +231,17 @@ def move_ball():
             padding=(5, 10))
             label2.grid(row=0, column=2)
             
+<<<<<<< HEAD
         #やり直しボール移動    
         ball_ichi_x = ball_idou_x * -1
         ball_ichi_y = (ball_idou_y * -1) + 60
+=======
+        #やり直しボール移動(ランダム)
+        x = random.randint(0,640)
+        y = random.randint(0,240)
+        ball_ichi_x = (ball_idou_x * -1) + x
+        ball_ichi_y = (ball_idou_y * -1) + y
+>>>>>>> ポイント加算オブジェクト
 
     #ボールが枠内の時の移動        
     if 0 <= ball_ichi_x + ball_idou_x <= 640:
@@ -208,11 +257,21 @@ def move_ball():
         ball_idou_y *= -1
         if random.randint(0, 1) == 0:
             ball_idou_x *= -1
-
+            
+#障害物に当たったかの判定
+    if  ball_ichi_y + ball_idou_y < 8 and (
+        350 <= (ball_ichi_x + ball_idou_x) <=
+        (350 + 76)
+        ):
+        ball_idou_y *= -1
+        if random.randint(0, 1) == 0:
+            ball_idou_x *= -1
+            
 #マウスの動きの処理
 def motion(event):
     global racket_ichi_x
     racket_ichi_x = event.x
+
 
 def click(event):
     if event.num == 1:
@@ -238,6 +297,7 @@ def game_loop():
     draw_racket()
     draw_block()
     move_ball()
+    #move_block()
     win.after(speed,game_loop)
     
 #ゲームのメイン処理
