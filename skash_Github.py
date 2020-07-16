@@ -61,6 +61,7 @@ def init_game():
     stock_ichi_x = 100
     stock_ichi_y = 100
     block_idou_x = 30
+    plus_block_x = 350
     point = 10
     stock = 3
     speed = 70
@@ -89,7 +90,8 @@ def draw_racket():
 def draw_block():
     #障害物を描く
     cv.create_rectangle(block_ichi_x,106,block_ichi_x +76,138,fill="blue")
-    cv.create_rectangle(350,0,350 +76,8,fill="red")
+    #ポイント加算障害物
+    cv.create_rectangle( 350, 0,350 +76,8,fill="red")
     
     
 #ボールの移動
@@ -119,6 +121,20 @@ def move_ball():
         if ball_idou_x < 0:
             ball_idou_x *= 1
 
+        mes = random.randint(0,4)
+        if mes == 0:
+            message = "うまい"
+        if mes == 1:
+            message = "グッド"
+        if mes == 2:
+            message = "ナイス"
+        if mes == 3:
+            message = "よし"
+        if mes == 4:
+            message = "素敵"
+        point += 10
+        win.title(message + "得点="+ str(point))
+
     #ラケット中央当たり判定
     if ball_ichi_y + ball_idou_y > 470 and (
         racket_ichi_x+40 <= (ball_ichi_x + ball_idou_x) <=
@@ -127,7 +143,21 @@ def move_ball():
         ball_idou_y *= -1
         if random.randint(0, 1) == 0:
             ball_idou_x *= -1
-
+        
+        mes = random.randint(0,4)
+        if mes == 0:
+            message = "うまい"
+        if mes == 1:
+            message = "グッド"
+        if mes == 2:
+            message = "ナイス"
+        if mes == 3:
+            message = "よし"
+        if mes == 4:
+            message = "素敵"
+        point += 10
+        win.title(message + "得点="+ str(point))
+        
     #ラケット右側当たり判定
     if ball_ichi_y + ball_idou_y > 470 and (
         racket_ichi_x+80 <= (ball_ichi_x + ball_idou_x) <=
@@ -210,7 +240,16 @@ def move_ball():
         ball_idou_y *= -1
         if random.randint(0, 1) == 0:
             ball_idou_x *= -1
-
+            
+#障害物に当たったかの判定
+    if  ball_ichi_y + ball_idou_y < 8 and (
+        350 <= (ball_ichi_x + ball_idou_x) <=
+        (350 + 76)
+        ):
+        ball_idou_y *= -1
+        if random.randint(0, 1) == 0:
+            ball_idou_x *= -1
+            
 #マウスの動きの処理
 def motion(event):
     global racket_ichi_x
