@@ -45,12 +45,10 @@ label2.grid(row=0, column=2)
 def init_game():
     global is_gameover,ball_ichi_x,ball_ichi_y
     global ball_idou_x,ball_idou_y,ball_size
-
     global racket_ichi_x,racket_size,racket_left,racket_center,racket_right,point,speed
     global block_ichi_x,block_size,point,stock
-
     global racket_ichi_x,racket_size,point,speed
-    global block_ichi_x,block_size,block_idou_x,point,stock,point2
+    global block_ichi_x,block_size,block_idou_x,point,stock
 
     
     is_gameover = False
@@ -68,7 +66,6 @@ def init_game():
     block_idou_x = 30
     plus_block_x = 350
     point = 10
-    point2 = 20
     stock = 3
     speed = 70
     win.title("スカッシュゲームスタート！")
@@ -257,8 +254,12 @@ def move_ball():
         (350 + 76)
         ):
         ball_idou_y *= -1
+        #スピード元通り
+        ball_idou_x = 15
+        ball_idou_y  = -15
         if random.randint(0, 1) == 0:
             ball_idou_x *= -1
+        #ポイントプラス
         point += 20
         win.title("GREAT! 得点="+ str(point))
         
@@ -267,8 +268,12 @@ def move_ball():
         630 <= (ball_ichi_x + ball_idou_x) 
         ):
         ball_idou_y *= -1
+        #スピードアップ
+        ball_idou_x = 30
+        ball_idou_y  = -30
         if random.randint(0, 1) == 0:
             ball_idou_x *= -1
+        #ポイントマイナス
         point -= 20
         win.title("BAD! 得点="+ str(point))
         cv.create_rectangle( 640,150, 630,200,fill="purple")
