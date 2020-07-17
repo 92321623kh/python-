@@ -99,7 +99,7 @@ def draw_block():
     #ポイント加算オブジェクト
     cv.create_rectangle( 350, 0,350 +76,8,fill="red")
     #ポイント減算オブジェクト
-    cv.create_rectangle( 640,150, 630,200,fill="purple")
+    cv.create_rectangle( 640,10, 630,10+120,fill="purple")
     
 #ボールの移動
 ##グローバル関数定義
@@ -252,7 +252,7 @@ def move_ball():
             ball_idou_x *= -1
         
 #ポイント加算オブジェクトに当たったかの判定
-    if  ball_ichi_y + ball_idou_y < 8 and (
+    if  ball_ichi_y + ball_idou_y <= 8 and (
         350 <= (ball_ichi_x + ball_idou_x) <=
         (350 + 76)
         ):
@@ -261,7 +261,18 @@ def move_ball():
             ball_idou_x *= -1
         point += 20
         win.title("GREAT! 得点="+ str(point))
-            
+        
+#ポイント減算オブジェクトに当たったかの判定
+    if  10 <= ball_ichi_y + ball_idou_y <= (10+120) and (
+        630 <= (ball_ichi_x + ball_idou_x) 
+        ):
+        ball_idou_y *= -1
+        if random.randint(0, 1) == 0:
+            ball_idou_x *= -1
+        point -= 20
+        win.title("BAD! 得点="+ str(point))
+        cv.create_rectangle( 640,150, 630,200,fill="purple")
+
 #マウスの動きの処理
 def motion(event):
     global racket_ichi_x
