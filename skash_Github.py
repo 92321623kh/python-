@@ -228,7 +228,6 @@ def move_ball():
             padding=(5, 10))
             label2.grid(row=0, column=2)
 
-
         #やり直しボール移動(ランダム)
         x = random.randint(0,640)
         y = random.randint(0,240)
