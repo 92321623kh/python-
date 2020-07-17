@@ -200,25 +200,14 @@ def move_ball():
             message = "ミス"
         if mes == 2:
             message = "は？"
-        point -= 30
+        point -= 20
         win.title(message +"得点="+ str(point))
         
-        #ポイントが0以下になればゲーム終了
-        if point <= 0:
-            is_gameover = True
-            label2 = ttk.Label(
-            frame1,
-            text= 'GAMEOVER',
-            background='#ffffff',
-            width=20,
-            anchor=E,
-            padding=(5, 10))
-            label2.grid(row=0, column=2)
-     
         stock = stock - 1
         
         #ストック数減少
-        if stock == 0:
+        #ポイント0以下でゲーム終了
+        if stock == 0 or point <= 0:
             label2 = ttk.Label(
             frame1,
             text= 'GAMEOVER',
