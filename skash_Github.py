@@ -45,8 +45,13 @@ label2.grid(row=0, column=2)
 def init_game():
     global is_gameover,ball_ichi_x,ball_ichi_y
     global ball_idou_x,ball_idou_y,ball_size
+
+    global racket_ichi_x,racket_size,racket_left,racket_center,racket_right,point,speed
+    global block_ichi_x,block_size,point,stock
+
     global racket_ichi_x,racket_size,point,speed
-    global block_ichi_x,block_size,block_idou_x,point,stock
+    global block_ichi_x,block_size,block_idou_x,point,stock,point2
+
     
     is_gameover = False
     ball_ichi_x = 0
@@ -63,6 +68,7 @@ def init_game():
     block_idou_x = 30
     plus_block_x = 350
     point = 10
+    point2 = 20
     stock = 3
     speed = 70
     win.title("スカッシュゲームスタート！")
@@ -194,7 +200,9 @@ def move_ball():
             message = "ミス"
         if mes == 2:
             message = "は？"
-        win.title(message +"得点=" + str(point))
+        point -= 30
+        win.title(message +"得点="+ str(point))
+
      
         stock = stock - 1
         
@@ -219,12 +227,13 @@ def move_ball():
             anchor=E,
             padding=(5, 10))
             label2.grid(row=0, column=2)
-            
+
         #やり直しボール移動(ランダム)
         x = random.randint(0,640)
         y = random.randint(0,240)
         ball_ichi_x = (ball_idou_x * -1) + x
         ball_ichi_y = (ball_idou_y * -1) + y
+
 
     #ボールが枠内の時の移動        
     if 0 <= ball_ichi_x + ball_idou_x <= 640:
@@ -233,15 +242,15 @@ def move_ball():
         ball_ichi_y = ball_ichi_y + ball_idou_y
 
 #障害物に当たったかの判定
-    if 66 < ball_ichi_y + ball_idou_y < 138 and (
+    if 106 < ball_ichi_y + ball_idou_y < 138 and (
         block_ichi_x <= (ball_ichi_x + ball_idou_x) <=
-        (block_ichi_x + block_size)
+        (block_ichi_x + 76)
         ):
         ball_idou_y *= -1
         if random.randint(0, 1) == 0:
             ball_idou_x *= -1
-            
-#障害物に当たったかの判定
+        
+#ポイント加算オブジェクトに当たったかの判定
     if  ball_ichi_y + ball_idou_y < 8 and (
         350 <= (ball_ichi_x + ball_idou_x) <=
         (350 + 76)
@@ -249,6 +258,7 @@ def move_ball():
         ball_idou_y *= -1
         if random.randint(0, 1) == 0:
             ball_idou_x *= -1
+        win.title("GREAT! 得点="+ str(point+20))
             
 #マウスの動きの処理
 def motion(event):
