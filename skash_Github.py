@@ -96,9 +96,10 @@ def draw_racket():
 def draw_block():
     #障害物を描く
     cv.create_rectangle(block_ichi_x,106,block_ichi_x +76,138,fill="blue")
-    #ポイント加算障害物
+    #ポイント加算オブジェクト
     cv.create_rectangle( 350, 0,350 +76,8,fill="red")
-    
+    #ポイント減算オブジェクト
+    cv.create_rectangle( 640,150, 630,200,fill="purple")
     
 #ボールの移動
 ##グローバル関数定義
