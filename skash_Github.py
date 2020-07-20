@@ -215,6 +215,30 @@ def move_ball():
             padding=(5, 10))
             label2.grid(row=0, column=2)
             is_gameover = True
+            
+            #ゲームオーバー画面表示
+            root = Tk()
+            root.geometry('250x200')
+            
+            frame2 = ttk.Frame(root)
+            width=250,
+            height=200,
+            frame2.pack()
+            
+            style = ttk.Style()
+            style.theme_use('classic')
+            
+            #ラベル表示
+            label3 = ttk.Label(
+            frame2,
+            text='GAME OVER',
+            background='red',
+            foreground='blue',
+            relief="solid",
+            borderwidth=5,
+            padding=(150, 100))
+            label3.grid(row=0, column=0)
+            
         #ストックが０以外の時
         else:
             label2 = ttk.Label(
