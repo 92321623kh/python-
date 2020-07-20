@@ -218,8 +218,8 @@ def move_ball():
             
             #ゲームオーバー画面表示
             root = Tk()
-            root.geometry('250x200')
-            
+            root.geometry('640x480')
+            #フレーム生成
             frame2 = ttk.Frame(root)
             width=250,
             height=200,
@@ -232,11 +232,13 @@ def move_ball():
             label3 = ttk.Label(
             frame2,
             text='GAME OVER',
-            background='red',
+            background='GRAY',
             foreground='blue',
             relief="solid",
+            font = ("FixedSys","60","bold","underline",),#フォント設定
             borderwidth=5,
-            padding=(150, 100))
+            anchor = N,
+            padding=(170, 240))
             label3.grid(row=0, column=0)
             
         #ストックが０以外の時
