@@ -33,14 +33,15 @@ label4.grid(row=0, column=0)
 button2 = ttk.Button(root,
                     text='START',
                     width='10',
-                    command=lambda:[close_window(),skashgame()])#ウィンドウ閉じる＆ゲーム再開
+                    command=lambda:[close_window(),skashgame()])#ウィンドウ閉じる＆ゲーム開始
 
 button2.place(x=180,y=320)#ボタン位置
 
 #ウィンドウ閉じる
 def close_window():
     root.destroy()
-    
+
+#スタートボタン押すとゲーム開始    
 def skashgame():
 #ウィンドウ作成
     win = Tk()
