@@ -29,18 +29,29 @@ borderwidth=10,#枠線の幅
 anchor = N,
 padding=(170, 240))#文字を中心とした塗りつぶしの位置
 label4.grid(row=0, column=0)
-#ボタン生成
+#スタートボタン生成
 button2 = ttk.Button(root,
                     text='START',
                     width='10',
                     command=lambda:[close_window(),skashgame()])#ウィンドウ閉じる＆ゲーム開始
 
-button2.place(x=180,y=320)#ボタン位置
+button2.place(x=180,y=325)#ボタン位置
+
+button3 = ttk.Button(root,
+                    text='Manual',
+                    width='10',
+                    command=lambda:[manual()])#マニュアル表示
+
+button3.place(x = 410,y = 325)#ボタン位置
 
 #ウィンドウ閉じる
 def close_window():
     root.destroy()
 
+#マニュアルウィンドウ表示
+def manual():
+    root = Tk()
+    
 #スタートボタン押すとゲーム開始    
 def skashgame():
 #ウィンドウ作成
