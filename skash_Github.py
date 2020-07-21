@@ -241,10 +241,11 @@ def move_ball():
             padding=(170, 240))#文字を中心とした塗りつぶしの位置
             label3.grid(row=0, column=0)
             #ボタン生成
-            button1 = ttk.Button(root, text='Continue?',width='10',command=init_game())
-            #relief='groove',
+            button1 = ttk.Button(root,
+                                 text='Continue?',
+                                 width='10',
+                                 command=lambda:[close_window(),init_game()])#ウィンドウ閉じる＆ゲーム再開
             button1.place(x=180,y=320)#ボタン位置
-        
         #ストックが０以外の時
         else:
             label2 = ttk.Label(
@@ -255,13 +256,15 @@ def move_ball():
             anchor=E,
             padding=(5, 10))
             label2.grid(row=0, column=2)
+        #ウィンドウ閉じる
+        def close_window():
+            root.destroy()
 
         #やり直しボール移動(ランダム)
         x = random.randint(0,640)
         y = random.randint(0,240)
         ball_ichi_x = (ball_idou_x * -1) + x
         ball_ichi_y = (ball_idou_y * -1) + y
-
 
     #ボールが枠内の時の移動        
     if 0 <= ball_ichi_x + ball_idou_x <= 640:
