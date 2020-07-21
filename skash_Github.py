@@ -232,15 +232,19 @@ def move_ball():
             label3 = ttk.Label(
             frame2,
             text='GAME OVER',
-            background='GRAY',
-            foreground='blue',
-            relief="solid",
+            background='GRAY',#背景色
+            foreground='blue',#文字の色
+            relief='solid',#枠線のスタイル
             font = ("FixedSys","60","bold","underline",),#フォント設定
-            borderwidth=5,
+            borderwidth=10,#枠線の幅
             anchor = N,
-            padding=(170, 240))
+            padding=(170, 240))#文字を中心とした塗りつぶしの位置
             label3.grid(row=0, column=0)
-            
+            #ボタン生成
+            button1 = ttk.Button(root, text='Continue?',width='10')
+            #relief='groove',
+            button1.place(x=180,y=320)#ボタン位置
+        
         #ストックが０以外の時
         else:
             label2 = ttk.Label(
