@@ -241,7 +241,7 @@ def move_ball():
             padding=(170, 240))#文字を中心とした塗りつぶしの位置
             label3.grid(row=0, column=0)
             #ボタン生成
-            button1 = ttk.Button(root, text='Continue?',width='10')
+            button1 = ttk.Button(root, text='Continue?',width='10',command=init_game())
             #relief='groove',
             button1.place(x=180,y=320)#ボタン位置
         
