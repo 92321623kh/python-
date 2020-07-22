@@ -37,6 +37,7 @@ button2 = ttk.Button(root,
 
 button2.place(x=180,y=325)#ボタン位置
 
+#マニュアルボタン生成
 button3 = ttk.Button(root,
                     text='Manual',
                     width='10',
@@ -47,10 +48,14 @@ button3.place(x = 410,y = 325)#ボタン位置
 #ウィンドウ閉じる
 def close_window():
     root.destroy()
-
-#マニュアルウィンドウ表示
+    
+    
+#マニュアル表示
 def manual():
-    root = Tk()
+    #テキストファイル読み込み
+    file = open('skashgame_manual.txt', 'r',encoding='utf-8')  #読み込みモードでオープン
+    string = file.read()      #readですべて読み込む
+    print(string)#IDLE画面に表示
     
 #スタートボタン押すとゲーム開始    
 def skashgame():
