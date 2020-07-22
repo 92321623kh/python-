@@ -49,7 +49,6 @@ button3.place(x = 410,y = 325)#ボタン位置
 def close_window():
     root.destroy()
     
-    
 #マニュアル表示
 def manual():
     #テキストファイル読み込み
@@ -63,6 +62,7 @@ def skashgame():
     win = Tk()
     cv = Canvas(win,width = 640,height = 480)
     cv.pack()
+    
 
 #ストックウィンドウ
     root = Tk()
@@ -93,6 +93,26 @@ def skashgame():
         anchor=E,
         padding=(5, 10))
     label2.grid(row=0, column=2)
+#スピード変更ボタン
+    ##EASYボタン
+    button6 = ttk.Button(root,
+                text='EASY',
+                width='10',
+                    )
+    button6.place(x = 10,y = 100)#ボタン位置
+    ##NORMALボタン
+    button7 = ttk.Button(root,
+                text='NORMAL',
+                width='10',
+                    )
+    button7.place(x = 90,y = 100)#ボタン位置
+    ##HARDボタン
+    button8 = ttk.Button(root,
+                text='HARD',
+                width='10',
+                command=lambda:[]
+                    )
+    button8.place(x = 170,y = 100)#ボタン位置
     
 #ゲームの初期化
     def init_game():
@@ -141,8 +161,7 @@ def skashgame():
         cv.create_rectangle(racket_ichi_x,470,racket_ichi_x +40,480,fill="yellow")
         cv.create_rectangle(racket_ichi_x+40,470,(racket_ichi_x +40)+40,480,fill="yellow")
         cv.create_rectangle(racket_ichi_x+80,470,(racket_ichi_x +80)+40,480,fill="yellow")
-    
-    
+
     def draw_block():
     #障害物を描く
         cv.create_rectangle(block_ichi_x,106,block_ichi_x +76,138,fill="blue")
@@ -257,7 +276,7 @@ def skashgame():
             stock = stock - 1
         
         #ストック数減少
-        #ポイント0以下でゲーム終了
+        #ポイント0以下かポイント0以下でゲーム終了
             if stock == 0 or point <= 0:
                 label2 = ttk.Label(
                 frame1,
@@ -297,8 +316,9 @@ def skashgame():
                 button1 = ttk.Button(root,
                                      text='Continue?',
                                      width='10',
-                                     command=lambda:[close_window(),init_game()])#ウィンドウ閉じる＆ゲーム再開
+                                     command=lambda:[close_window(),fullstock(),init_game()])#ウィンドウ閉じる＆ゲーム再開
                 button1.place(x=180,y=320)#ボタン位置
+                stock = stock+1
         #ストックが０以外の時
             else:
                 label2 = ttk.Label(
@@ -312,6 +332,18 @@ def skashgame():
         #ウィンドウ閉じる
             def close_window():
                 root.destroy()
+
+        #ストック数回復
+            def fullstock():
+                label2 = ttk.Label(
+                frame1,
+                 text='3',
+                background='#ffffff',
+                width=20,
+                anchor=E,
+                padding=(5, 10))
+                label2.grid(row=0, column=2)
+                init_game()
 
         #やり直しボール移動(ランダム)
             x = random.randint(0,640)
@@ -369,23 +401,8 @@ def skashgame():
         global racket_ichi_x
         racket_ichi_x = event.x
 
-
-    def click(event):
-        if event.num == 1:
-            #ストック数回復
-            label2 = ttk.Label(
-            frame1,
-            text='3',
-            background='#ffffff',
-            width=20,
-            anchor=E,
-            padding=(5, 10))
-            label2.grid(row=0, column=2)
-            init_game()
-
 #マウスの動きとクリックの確認
     win.bind('<Motion>',motion)
-    win.bind('<Button>',click)
 
 #ゲームの繰り返し処理の指令
     def game_loop():
