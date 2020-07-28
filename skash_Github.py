@@ -276,7 +276,7 @@ def skashgame():
             stock = stock - 1
         
         #ストック数減少
-        #ポイント0以下かポイント0以下でゲーム終了
+        #ストック0以下かポイント0以下でゲーム終了
             if stock == 0 or point <= 0:
                 label2 = ttk.Label(
                 frame1,
@@ -400,7 +400,7 @@ def skashgame():
     def motion(event):
         global racket_ichi_x
         racket_ichi_x = event.x
-
+        
 #マウスの動きとクリックの確認
     win.bind('<Motion>',motion)
 
