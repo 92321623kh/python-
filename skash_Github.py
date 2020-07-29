@@ -121,7 +121,7 @@ def skashgame():
         global racket_ichi_x,racket_size,racket_left,racket_center,racket_right,point,speed
         global block_ichi_x,block_size,point,stock
         global racket_ichi_x,racket_size,point,speed
-        global blue_block_ichi_x,block_size,block_idou_x,point,stock,red_block_ichi_x,purple_block_ichi_y
+        global blue_block_ichi_x,block_size,blue_block_idou_x,red_block_idou_x,purple_block_idou_y,point,stock,red_block_ichi_x,purple_block_ichi_y
 
     
         is_gameover = False
@@ -141,8 +141,12 @@ def skashgame():
         red_block_ichi_x = 350
         #紫の障害物位置
         purple_block_ichi_y = 10
-        #障害物移動量
-        block_idou_x = 30
+        #青い障害物移動量
+        blue_block_idou_x = 30
+        #赤い障害物移動量
+        red_block_idou_x = 30
+        #紫の障害物移動量
+        purple_block_idou_y = 30
         block_size = 100
         plus_block_x = 350
         #ストック
@@ -183,7 +187,7 @@ def skashgame():
 #ボールの移動
 ##グローバル関数定義
     def move_ball():
-        global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock,blue_block_ichi_x,red_block_ichi_x,purple_block_ichi_y,block_idou_x
+        global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock,blue_block_ichi_x,red_block_ichi_x,purple_block_ichi_y,blue_block_idou_x,red_block_idou_x,purple_block_idou_y
         if is_gameover: return
         
 #左右の壁に当たったかの判定
@@ -407,20 +411,20 @@ def skashgame():
             cv.create_rectangle( 640,150, 630,200,fill="purple")
 
         #青い障害物が枠内の時の移動        
-        if 0 <= blue_block_ichi_x + block_idou_x <= 640:
-            blue_block_ichi_x = blue_block_ichi_x + block_idou_x
+        if 0 <= blue_block_ichi_x + blue_block_idou_x <= 640:
+            blue_block_ichi_x = blue_block_ichi_x + blue_block_idou_x
 
         #赤い障害物が枠内の時の移動        
-        if 0 <= red_block_ichi_x + block_idou_x <= 640:
-            red_block_ichi_x = red_block_ichi_x + block_idou_x
+        if 0 <= red_block_ichi_x + red_block_idou_x <= 640:
+            red_block_ichi_x = red_block_ichi_x + red_block_idou_x
         
         #青い障害物が左右の壁に当たった時
-        if blue_block_ichi_x + block_idou_x < 0 or blue_block_ichi_x + block_idou_x > 640:
-            block_idou_x *= -1
+        if blue_block_ichi_x + blue_block_idou_x < 0 or blue_block_ichi_x + blue_block_idou_x > 640:
+            blue_block_idou_x *= -1
 
         #赤い障害物が左右の壁に当たった時
-        if red_block_ichi_x + block_idou_x < 0 or red_block_ichi_x + block_idou_x > 640:
-            block_idou_x *= -1
+        if red_block_ichi_x + red_block_idou_x < 0 or red_block_ichi_x + red_block_idou_x > 640:
+            red_block_idou_x *= -1
             
 #マウスの動きの処理
     def motion(event):
