@@ -417,6 +417,10 @@ def skashgame():
         #赤い障害物が枠内の時の移動        
         if 0 <= red_block_ichi_x + red_block_idou_x <= 640:
             red_block_ichi_x = red_block_ichi_x + red_block_idou_x
+
+        #紫の障害物が枠内の時の移動        
+        if 0 <= purple_block_ichi_y + purple_block_idou_y <= 480:
+            purple_block_ichi_y = purple_block_ichi_y + purple_block_idou_y    
         
         #青い障害物が左右の壁に当たった時
         if blue_block_ichi_x + blue_block_idou_x < 0 or blue_block_ichi_x + blue_block_idou_x > 640:
@@ -425,6 +429,11 @@ def skashgame():
         #赤い障害物が左右の壁に当たった時
         if red_block_ichi_x + red_block_idou_x < 0 or red_block_ichi_x + red_block_idou_x > 640:
             red_block_idou_x *= -1
+            
+        #紫の障害物が天井と床に当たった時
+        if purple_block_ichi_y + purple_block_idou_y < 0 or purple_block_ichi_y + purple_block_idou_y > 480:
+            purple_block_idou_y *= -1
+
             
 #マウスの動きの処理
     def motion(event):
