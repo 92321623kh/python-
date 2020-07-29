@@ -146,7 +146,7 @@ def skashgame():
         #赤い障害物移動量
         red_block_idou_x = 30
         #紫の障害物移動量
-        purple_block_idou_y = 30
+        purple_block_idou_y = 15
         block_size = 100
         plus_block_x = 350
         #ストック
@@ -373,8 +373,8 @@ def skashgame():
 
 #青い障害物に当たったかの判定
         if 106 < ball_ichi_y + ball_idou_y < 138 and (
-            blue_block_ichi_x <= (ball_ichi_x + ball_idou_x) <=
-            (blue_block_ichi_x + 76)
+            blue_block_ichi_x + blue_block_idou_x <= (ball_ichi_x + ball_idou_x) <=
+            (blue_block_ichi_x + 76) + blue_block_idou_x
             ):
             ball_idou_y *= -1
             if random.randint(0, 1) == 0:
@@ -382,8 +382,8 @@ def skashgame():
         
 #ポイント加算オブジェクト(赤)に当たったかの判定
         if  ball_ichi_y + ball_idou_y <= 8 and (
-            350 <= (ball_ichi_x + ball_idou_x) <=
-            (350 + 76)
+            red_block_ichi_x + red_block_idou_x <= (ball_ichi_x + ball_idou_x) <=
+            (red_block_ichi_x + 76) + red_block_idou_x
             ):
             ball_idou_y *= -1
         #スピード元通り
@@ -396,7 +396,7 @@ def skashgame():
             win.title("GREAT! 得点="+ str(point))
         
 #ポイント減算オブジェクト(紫)に当たったかの判定
-        if  10 <= ball_ichi_y + ball_idou_y <= (10+120) and (
+        if  purple_block_ichi_y + purple_block_idou_y <= ball_ichi_y + ball_idou_y <= (purple_block_ichi_y+120) + purple_block_idou_y and (
             630 <= (ball_ichi_x + ball_idou_x) 
             ):
             ball_idou_y *= -1
@@ -419,7 +419,7 @@ def skashgame():
             red_block_ichi_x = red_block_ichi_x + red_block_idou_x
 
         #紫の障害物が枠内の時の移動        
-        if 0 <= purple_block_ichi_y + purple_block_idou_y <= 480:
+        if 0 <= purple_block_ichi_y + purple_block_idou_y <= 240:
             purple_block_ichi_y = purple_block_ichi_y + purple_block_idou_y    
         
         #青い障害物が左右の壁に当たった時
@@ -431,7 +431,7 @@ def skashgame():
             red_block_idou_x *= -1
             
         #紫の障害物が天井と床に当たった時
-        if purple_block_ichi_y + purple_block_idou_y < 0 or purple_block_ichi_y + purple_block_idou_y > 480:
+        if purple_block_ichi_y + purple_block_idou_y < 0 or purple_block_ichi_y + purple_block_idou_y > 240:
             purple_block_idou_y *= -1
 
             
