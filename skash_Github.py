@@ -184,6 +184,12 @@ def skashgame():
 ##グローバル関数定義
     def move_ball():
         global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock,blue_block_ichi_x,red_block_ichi_x,purple_block_ichi_y,blue_block_idou_x,red_block_idou_x,purple_block_idou_y
+        if ball_idou_x and ball_idou_y == 30:
+            ball_idou_x = 30
+            ball_idou_y = 30
+        if ball_idou_x and ball_idou_y== 15:
+            ball_idou_x = 15
+            ball_idou_y = 15
         if is_gameover: return
         
 #左右の壁に当たったかの判定
@@ -407,7 +413,8 @@ def skashgame():
         #ポイントマイナス
             point -= 200
             win.title("BAD! 得点="+ str(point))
-
+            
+        #ポイント0以下ならゲーム終了
             if point <= 0:
                 label2 = ttk.Label(
                 frame1,
@@ -466,9 +473,14 @@ def skashgame():
                 padding=(5, 10))
                 label2.grid(row=0, column=2)
                 init_game()
+                
+        def click(event):
+            if event.num == 1:
+                ball_idou_x = 30
+                ball_idou_y = -30
 
-            
-
+        win.bind('<Button>',click)
+         
 #障害物の移動
         #青い障害物が枠内の時の移動        
         if 0 <= blue_block_ichi_x + blue_block_idou_x <= 640:
@@ -499,9 +511,12 @@ def skashgame():
     def motion(event):
         global racket_ichi_x
         racket_ichi_x = event.x
+
+    
         
 #マウスの動きとクリックの確認
     win.bind('<Motion>',motion)
+   
 
 #ゲームの繰り返し処理の指令
     def game_loop():
