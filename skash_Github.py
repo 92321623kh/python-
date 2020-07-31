@@ -119,9 +119,9 @@ def skashgame():
         global is_gameover,ball_ichi_x,ball_ichi_y
         global ball_idou_x,ball_idou_y,ball_size
         global racket_ichi_x,racket_size,racket_left,racket_center,racket_right,point,speed
-        global block_ichi_x,block_size,point,stock
+        global block_ichi_x,point,stock
         global racket_ichi_x,racket_size,point,speed
-        global blue_block_ichi_x,block_size,block_idou_x,point,stock,red_block_ichi_x,purple_block_ichi_y
+        global blue_block_ichi_x,block_size,blue_block_idou_x,red_block_idou_x,purple_block_idou_y,point,stock,red_block_ichi_x,purple_block_ichi_y
 
     
         is_gameover = False
@@ -141,14 +141,14 @@ def skashgame():
         red_block_ichi_x = 350
         #紫の障害物位置
         purple_block_ichi_y = 10
-        #障害物移動量
-        block_idou_x = 30
-        block_size = 100
-        plus_block_x = 350
+        #青い障害物移動量
+        blue_block_idou_x = 30
+        #赤い障害物移動量
+        red_block_idou_x = 30
+        #紫の障害物移動量
+        purple_block_idou_y = 15
+        point = 10 #ポイント
         #ストック
-        stock_ichi_x = 100
-        stock_ichi_y = 100
-        point = 10
         stock = 3
         speed = 70
         win.title("スカッシュゲームスタート！")
@@ -183,9 +183,16 @@ def skashgame():
 #ボールの移動
 ##グローバル関数定義
     def move_ball():
-        global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock,blue_block_ichi_x,red_block_ichi_x,purple_block_ichi_y,block_idou_x
+        global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock,blue_block_ichi_x,red_block_ichi_x,purple_block_ichi_y,blue_block_idou_x,red_block_idou_x,purple_block_idou_y
+        if ball_idou_x and ball_idou_y == 30:
+            ball_idou_x = 30
+            ball_idou_y = 30
+        if ball_idou_x and ball_idou_y== 15:
+            ball_idou_x = 15
+            ball_idou_y = 15
         if is_gameover: return
-        
+
+    
 #左右の壁に当たったかの判定
         if ball_ichi_x + ball_idou_x < 0 or ball_ichi_x + ball_idou_x > 640:
             ball_idou_x *= -1
@@ -282,7 +289,8 @@ def skashgame():
                 message = "は？"
             point -= 20
             win.title(message +"得点="+ str(point))
-        
+            
+            
             stock = stock - 1
         
         #ストック数減少
@@ -322,7 +330,7 @@ def skashgame():
                 anchor = N,
                 padding=(170, 240))#文字を中心とした塗りつぶしの位置
                 label3.grid(row=0, column=0)
-            #ボタン生成
+            #コンティニューボタン生成
                 button1 = ttk.Button(root,
                                      text='Continue?',
                                      width='10',
@@ -339,11 +347,13 @@ def skashgame():
                 anchor=E,
                 padding=(5, 10))
                 label2.grid(row=0, column=2)
-        #ウィンドウ閉じる
+                
+    #コンティニューから呼び出し         
+        ##ウィンドウ閉じる
             def close_window():
                 root.destroy()
 
-        #ストック数回復
+        ##ストック数回復
             def fullstock():
                 label2 = ttk.Label(
                 frame1,
@@ -369,8 +379,8 @@ def skashgame():
 
 #青い障害物に当たったかの判定
         if 106 < ball_ichi_y + ball_idou_y < 138 and (
-            blue_block_ichi_x <= (ball_ichi_x + ball_idou_x) <=
-            (blue_block_ichi_x + 76)
+            blue_block_ichi_x + blue_block_idou_x <= (ball_ichi_x + ball_idou_x) <=
+            (blue_block_ichi_x + 76) + blue_block_idou_x
             ):
             ball_idou_y *= -1
             if random.randint(0, 1) == 0:
@@ -378,8 +388,8 @@ def skashgame():
         
 #ポイント加算オブジェクト(赤)に当たったかの判定
         if  ball_ichi_y + ball_idou_y <= 8 and (
-            350 <= (ball_ichi_x + ball_idou_x) <=
-            (350 + 76)
+            red_block_ichi_x + red_block_idou_x <= (ball_ichi_x + ball_idou_x) <=
+            (red_block_ichi_x + 76) + red_block_idou_x
             ):
             ball_idou_y *= -1
         #スピード元通り
@@ -392,7 +402,7 @@ def skashgame():
             win.title("GREAT! 得点="+ str(point))
         
 #ポイント減算オブジェクト(紫)に当たったかの判定
-        if  10 <= ball_ichi_y + ball_idou_y <= (10+120) and (
+        if  purple_block_ichi_y + purple_block_idou_y <= ball_ichi_y + ball_idou_y <= (purple_block_ichi_y+120) + purple_block_idou_y and (
             630 <= (ball_ichi_x + ball_idou_x) 
             ):
             ball_idou_y *= -1
@@ -402,22 +412,112 @@ def skashgame():
             if random.randint(0, 1) == 0:
                 ball_idou_x *= -1
         #ポイントマイナス
-            point -= 20
+            point -= 200
             win.title("BAD! 得点="+ str(point))
-            cv.create_rectangle( 640,150, 630,200,fill="purple")
+            
+        #ポイント0以下ならゲーム終了
+            if point <= 0:
+                label2 = ttk.Label(
+                frame1,
+                text= 'GAMEOVER',
+                background='#ffffff',
+                width=20,
+                anchor=E,
+                padding=(5, 10))
+                label2.grid(row=0, column=2)
+                is_gameover = True
+            
+            #ゲームオーバー画面表示
+                root = Tk()
+                root.geometry('640x480')
+            #フレーム生成
+                frame2 = ttk.Frame(root)
+                width=250,
+                height=200,
+                frame2.pack()
+            
+                style = ttk.Style()
+                style.theme_use('classic')
+            
+            #ラベル表示
+                label3 = ttk.Label(
+                frame2,
+                text='GAME OVER',
+                background='GRAY',#背景色
+                foreground='blue',#文字の色
+                relief='solid',#枠線のスタイル
+                font = ("FixedSys","60","bold","underline",),#フォント設定
+                borderwidth=10,#枠線の幅
+                anchor = N,
+                padding=(170, 240))#文字を中心とした塗りつぶしの位置
+                label3.grid(row=0, column=0)
+            #コンティニューボタン生成
+                button1 = ttk.Button(root,
+                                     text='Continue?',
+                                     width='10',
+                                     command=lambda:[close_window(),fullstock(),init_game()])#ウィンドウ閉じる＆ゲーム再開
+                button1.place(x=180,y=320)#ボタン位置
 
+                #コンティニューから呼び出し         
+        ##ウィンドウ閉じる
+            def close_window():
+                root.destroy()
+
+        ##ストック数回復
+            def fullstock():
+                label2 = ttk.Label(
+                frame1,
+                 text='3',
+                background='#ffffff',
+                width=20,
+                anchor=E,
+                padding=(5, 10))
+                label2.grid(row=0, column=2)
+                init_game()
+                
+        def click(event):
+            if event.num == 1:
+                ball_idou_x = 30
+                ball_idou_y = -30
+
+        win.bind('<Button>',click)
+         
+#障害物の移動
         #青い障害物が枠内の時の移動        
-        if 0 <= blue_block_ichi_x + block_idou_x <= 640:
-            blue_block_ichi_x = blue_block_ichi_x + block_idou_x
-        
+        if 0 <= blue_block_ichi_x + blue_block_idou_x <= 640:
+            blue_block_ichi_x = blue_block_ichi_x + blue_block_idou_x
 
+        #赤い障害物が枠内の時の移動        
+        if 0 <= red_block_ichi_x + red_block_idou_x <= 640:
+            red_block_ichi_x = red_block_ichi_x + red_block_idou_x
+
+        #紫の障害物が枠内の時の移動        
+        if 0 <= purple_block_ichi_y + purple_block_idou_y <= 240:
+            purple_block_ichi_y = purple_block_ichi_y + purple_block_idou_y    
+        
+        #青い障害物が左右の壁に当たった時
+        if blue_block_ichi_x + blue_block_idou_x < 0 or blue_block_ichi_x + blue_block_idou_x > 640:
+            blue_block_idou_x *= -1
+
+        #赤い障害物が左右の壁に当たった時
+        if red_block_ichi_x + red_block_idou_x < 0 or red_block_ichi_x + red_block_idou_x > 640:
+            red_block_idou_x *= -1
+            
+        #紫の障害物が天井と床に当たった時
+        if purple_block_ichi_y + purple_block_idou_y < 0 or purple_block_ichi_y + purple_block_idou_y > 240:
+            purple_block_idou_y *= -1
+
+            
 #マウスの動きの処理
     def motion(event):
         global racket_ichi_x
         racket_ichi_x = event.x
+
+    
         
 #マウスの動きとクリックの確認
     win.bind('<Motion>',motion)
+   
 
 #ゲームの繰り返し処理の指令
     def game_loop():
