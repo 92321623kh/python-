@@ -1,5 +1,6 @@
 #スカッシュゲーム(壁打ちテニス)
 
+
 #モジュールのインポート
 from tkinter import *
 from tkinter import ttk
