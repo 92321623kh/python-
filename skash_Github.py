@@ -488,7 +488,6 @@ def skashgame():
                 init_game()
                 
 
-         
 #障害物の移動
         #青い障害物が枠内の時の移動        
         if 0 <= blue_block_ichi_x + blue_block_idou_x <= 640:
