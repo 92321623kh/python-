@@ -93,27 +93,7 @@ def skashgame():
         anchor=E,
         padding=(5, 10))
     label2.grid(row=0, column=2)
-#スピード変更ボタン
-    ##EASYボタン
-    button6 = ttk.Button(root,
-                text='EASY',
-                width='10',
-                    )
-    button6.place(x = 10,y = 100)#ボタン位置
-    ##NORMALボタン
-    button7 = ttk.Button(root,
-                text='NORMAL',
-                width='10',
-                    )
-    button7.place(x = 90,y = 100)#ボタン位置
-    ##HARDボタン
-    button8 = ttk.Button(root,
-                text='HARD',
-                width='10',
-                command=lambda:[]
-                    )
-    button8.place(x = 170,y = 100)#ボタン位置
-    
+
 #ゲームの初期化
     def init_game():
         global is_gameover,ball_ichi_x,ball_ichi_y
@@ -201,13 +181,6 @@ def skashgame():
 ##グローバル関数定義
     def move_ball():
         global is_gameover,x1,y1,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock,blue_block_ichi_x,red_block_ichi_x,purple_block_ichi_y,blue_block_idou_x,red_block_idou_x,purple_block_idou_y
-        
-      #  if ball_idou_x  == 30 and ball_idou_y == -30:
-      #      ball_idou_x = 30
-      #      ball_idou_y = -30
-      #  if ball_idou_x == 15 and ball_idou_y== -15:
-      #      ball_idou_y = -15
-
         #print(ball_idou_x)
         #print(x1)
         #print(ball_idou_y)
