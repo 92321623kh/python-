@@ -103,7 +103,7 @@ def skashgame():
         global block_ichi_x,point,stock
         global racket_ichi_x,racket_size,point,speed
         global blue_block_ichi_x,block_size,blue_block_idou_x,red_block_idou_x,purple_block_idou_y,point,stock,red_block_ichi_x,purple_block_ichi_y
-        global x1,y1
+        global x1,y1,breakblock_x,breakblock_y
 
 
         x1 = 1
@@ -131,6 +131,9 @@ def skashgame():
         red_block_idou_x = 30
         #紫の障害物移動量
         purple_block_idou_y = 15
+        #ブロック崩し
+        breakblock_x =100
+        breakblock_y = 30
         point = 10 #ポイント
         #ストック
         stock = 3
@@ -177,6 +180,13 @@ def skashgame():
         cv.create_rectangle( red_block_ichi_x, 0,red_block_ichi_x +76,8,fill="red")
     #紫のポイント減算オブジェクト
         cv.create_rectangle( 640,purple_block_ichi_y, 630,purple_block_ichi_y+120,fill="purple")
+
+    #ブロック崩し
+    def draw_breakblock():
+        for i in range(6):
+                for j in range(3):
+                        cv.create_rectangle(i*breakblock_x, j*breakblock_y, (i+1)*breakblock_x, (j+1)*breakblock_y, fill = "orange")
+
     
 #ボールの移動
 ##グローバル関数定義
@@ -519,6 +529,7 @@ def skashgame():
         draw_ball()
         draw_racket()
         draw_block()
+        draw_breakblock()
         move_ball()
         win.after(speed,game_loop)
     
