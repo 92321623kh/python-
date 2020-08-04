@@ -157,13 +157,16 @@ def skashgame():
         win.title("スカッシュゲームスタート！")
         print(x1)#クリック関数       
         def click(event):
-            global x1,y1 #変数宣言 
-            if event.num == 1:
+            global x1,y1, ball_idou_x, ball_idou_y #変数宣言 
+            if event.num == 1: #左クリでスピードアップ
                 x1 = 1.3
                 y1 = 1.3
+                 
+            if event.num == 3: #右クリでスピード元通り
+                ball_idou_x = 15
+                ball_idou_y= 15
                 #print('click:' + str(x1))
                 #print('click:' + str(y1))
-                #print('aaaaa')
 
         win.bind('<Button>',click)
 
@@ -209,8 +212,10 @@ def skashgame():
         #print(x1)
         #print(ball_idou_y)
         #print(y1)
+        #ボール移動量を1.3倍
         ball_idou_x *= x1
         ball_idou_y *= y1
+        #1.3倍を維持
         x1 = 1
         y1 = 1
         if is_gameover: return
@@ -435,7 +440,7 @@ def skashgame():
             if random.randint(0, 1) == 0:
                 ball_idou_x *= -1
         #ポイントマイナス
-            point -= 200
+            point -= 20
             win.title("BAD! 得点="+ str(point))
             
         #ポイント0以下ならゲーム終了
