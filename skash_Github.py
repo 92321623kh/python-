@@ -210,8 +210,19 @@ def skashgame():
             ball_idou_x *= -1
 
 #天井か床に当たったかの判定
-        if ball_ichi_y + ball_idou_y < 0:
-            ball_idou_y *= -1
+        #if ball_ichi_y + ball_idou_y < 90:
+         #   ball_idou_y *= -1
+
+        #ブロック反射
+            #def reflect():
+        for i in range(12):
+            for j in reversed(range(0, 2)):
+                if ball_ichi_y + ball_idou_y < (j+1)*breakblock_y or i*breakblock_x < ball_ichi_x + ball_idou_x< (i+1)*breakblock_x:
+                   ball_idou_y *= -1 #ボール反射
+                   cv.delete("block") #ブロックの描画を消す
+                #ボールがブロックの左右に挟まれてる場合
+                   print('a')
+                
         
 #ラケットに当たったか判定
     #ラケット左側当たり判定
@@ -488,7 +499,6 @@ def skashgame():
                 init_game()
                 
 
-         
 #障害物の移動
         #青い障害物が枠内の時の移動        
         if 0 <= blue_block_ichi_x + blue_block_idou_x <= 640:
