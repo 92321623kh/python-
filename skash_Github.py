@@ -1,5 +1,6 @@
 #スカッシュゲーム(壁打ちテニス)
 
+
 #モジュールのインポート
 from tkinter import *
 from tkinter import ttk
@@ -93,27 +94,7 @@ def skashgame():
         anchor=E,
         padding=(5, 10))
     label2.grid(row=0, column=2)
-#スピード変更ボタン
-    ##EASYボタン
-    button6 = ttk.Button(root,
-                text='EASY',
-                width='10',
-                    )
-    button6.place(x = 10,y = 100)#ボタン位置
-    ##NORMALボタン
-    button7 = ttk.Button(root,
-                text='NORMAL',
-                width='10',
-                    )
-    button7.place(x = 90,y = 100)#ボタン位置
-    ##HARDボタン
-    button8 = ttk.Button(root,
-                text='HARD',
-                width='10',
-                command=lambda:[]
-                    )
-    button8.place(x = 170,y = 100)#ボタン位置
-    
+
 #ゲームの初期化
     def init_game():
         global is_gameover,ball_ichi_x,ball_ichi_y
@@ -122,8 +103,11 @@ def skashgame():
         global block_ichi_x,point,stock
         global racket_ichi_x,racket_size,point,speed
         global blue_block_ichi_x,block_size,blue_block_idou_x,red_block_idou_x,purple_block_idou_y,point,stock,red_block_ichi_x,purple_block_ichi_y
+        global x1,y1,breakblock_x,breakblock_y
 
-    
+
+        x1 = 1
+        y1 = 1
         is_gameover = False
         #ボール位置
         ball_ichi_x = 0
@@ -147,11 +131,28 @@ def skashgame():
         red_block_idou_x = 30
         #紫の障害物移動量
         purple_block_idou_y = 15
+        #ブロック崩し
+        breakblock_x =110
+        breakblock_y = 30
         point = 10 #ポイント
         #ストック
         stock = 3
         speed = 70
         win.title("スカッシュゲームスタート！")
+        print(x1)#クリック関数       
+        def click(event):
+            global x1,y1, ball_idou_x, ball_idou_y #変数宣言 
+            if event.num == 1: #左クリでスピードアップ
+                x1 = 1.3
+                y1 = 1.3
+                 
+            if event.num == 3: #右クリでスピード元通り
+                ball_idou_x = 15
+                ball_idou_y= 15
+                #print('click:' + str(x1))
+                #print('click:' + str(y1))
+
+        win.bind('<Button>',click)
 
 #画面描画
     def draw_screen():
@@ -179,26 +180,52 @@ def skashgame():
         cv.create_rectangle( red_block_ichi_x, 0,red_block_ichi_x +76,8,fill="red")
     #紫のポイント減算オブジェクト
         cv.create_rectangle( 640,purple_block_ichi_y, 630,purple_block_ichi_y+120,fill="purple")
+
+
+    
+    #ブロック崩しブロック生成
+    def draw_breakblock():
+        for i in range(6):
+                for j in range(3):
+                    cv.create_rectangle(i*breakblock_x, j*breakblock_y, (i+1)*breakblock_x, (j+1)*breakblock_y, fill = "orange",tag="block")
+    
+               
+        
     
 #ボールの移動
 ##グローバル関数定義
     def move_ball():
-        global is_gameover,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock,blue_block_ichi_x,red_block_ichi_x,purple_block_ichi_y,blue_block_idou_x,red_block_idou_x,purple_block_idou_y
-        if ball_idou_x and ball_idou_y == 30:
-            ball_idou_x = 30
-            ball_idou_y = 30
-        if ball_idou_x and ball_idou_y== 15:
-            ball_idou_x = 15
-            ball_idou_y = 15
+        global is_gameover,x1,y1,point,ball_ichi_x,ball_ichi_y,ball_idou_x,ball_idou_y,stock,blue_block_ichi_x,red_block_ichi_x,purple_block_ichi_y,blue_block_idou_x,red_block_idou_x,purple_block_idou_y
+        #print(ball_idou_x)
+        #print(x1)
+        #print(ball_idou_y)
+        #print(y1)
+        #ボール移動量を1.3倍
+        ball_idou_x *= x1
+        ball_idou_y *= y1
+        #1.3倍を維持
+        x1 = 1
+        y1 = 1
         if is_gameover: return
-        
+
 #左右の壁に当たったかの判定
         if ball_ichi_x + ball_idou_x < 0 or ball_ichi_x + ball_idou_x > 640:
             ball_idou_x *= -1
 
 #天井か床に当たったかの判定
-        if ball_ichi_y + ball_idou_y < 0:
-            ball_idou_y *= -1
+        #if ball_ichi_y + ball_idou_y < 90:
+         #   ball_idou_y *= -1
+
+        #ブロック反射
+            #def reflect():
+        for i in range(12):
+            for j in reversed(range(0, 2)):
+                if ball_ichi_y + ball_idou_y < (j+1)*breakblock_y or i*breakblock_x < ball_ichi_x + ball_idou_x< (i+1)*breakblock_x:
+                   ball_idou_y *= -1 #ボール反射
+                   cv.delete("block") #ブロックの描画を消す
+                #ボールがブロックの左右に挟まれてる場合
+                   print('a')
+                
         
 #ラケットに当たったか判定
     #ラケット左側当たり判定
@@ -411,7 +438,7 @@ def skashgame():
             if random.randint(0, 1) == 0:
                 ball_idou_x *= -1
         #ポイントマイナス
-            point -= 200
+            point -= 20
             win.title("BAD! 得点="+ str(point))
             
         #ポイント0以下ならゲーム終了
@@ -474,13 +501,7 @@ def skashgame():
                 label2.grid(row=0, column=2)
                 init_game()
                 
-        def click(event):
-            if event.num == 1:
-                ball_idou_x = 30
-                ball_idou_y = -30
 
-        win.bind('<Button>',click)
-         
 #障害物の移動
         #青い障害物が枠内の時の移動        
         if 0 <= blue_block_ichi_x + blue_block_idou_x <= 640:
@@ -511,19 +532,17 @@ def skashgame():
     def motion(event):
         global racket_ichi_x
         racket_ichi_x = event.x
-
-    
         
 #マウスの動きとクリックの確認
     win.bind('<Motion>',motion)
    
-
 #ゲームの繰り返し処理の指令
     def game_loop():
         draw_screen()
         draw_ball()
         draw_racket()
         draw_block()
+        draw_breakblock()
         move_ball()
         win.after(speed,game_loop)
     
