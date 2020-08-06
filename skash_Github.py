@@ -1,6 +1,7 @@
 #スカッシュゲーム(壁打ちテニス)
 
 
+
 #モジュールのインポート
 from tkinter import *
 from tkinter import ttk
@@ -132,7 +133,7 @@ def skashgame():
         #紫の障害物移動量
         purple_block_idou_y = 15
         #ブロック崩し
-        breakblock_x =100
+        breakblock_x =110
         breakblock_y = 30
         point = 10 #ポイント
         #ストック
@@ -181,12 +182,16 @@ def skashgame():
     #紫のポイント減算オブジェクト
         cv.create_rectangle( 640,purple_block_ichi_y, 630,purple_block_ichi_y+120,fill="purple")
 
-    #ブロック崩し
+
+    
+    #ブロック崩しブロック生成
     def draw_breakblock():
         for i in range(6):
                 for j in range(3):
-                        cv.create_rectangle(i*breakblock_x, j*breakblock_y, (i+1)*breakblock_x, (j+1)*breakblock_y, fill = "orange")
-
+                    cv.create_rectangle(i*breakblock_x, j*breakblock_y, (i+1)*breakblock_x, (j+1)*breakblock_y, fill = "orange",tag="block")
+    
+               
+        
     
 #ボールの移動
 ##グローバル関数定義
@@ -204,7 +209,6 @@ def skashgame():
         y1 = 1
         if is_gameover: return
 
-    
 #左右の壁に当たったかの判定
         if ball_ichi_x + ball_idou_x < 0 or ball_ichi_x + ball_idou_x > 640:
             ball_idou_x *= -1
